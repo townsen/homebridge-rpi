@@ -74,6 +74,10 @@
                         "enum": [ "contact" ]
                       },
                       {
+                        "title": "DS18B20 Temperature Sensor",
+                        "enum": [ "ds18b20" ]
+                      },
+                      {
                         "title": "Fan SHIM",
                         "enum": [ "fanshim" ]
                       },
@@ -108,9 +112,14 @@
                      "description": "The HomeKit name of the device.",
                      "type": "string"
                   },
+                  "wireid": {
+                     "title": "1-Wire ID",
+                     "description": "The 1-Wire device ID.",
+                     "type": "string"
+                  },
                   "gpio": {
                      "title": "GPIO",
-                     "description": "The BCM number of the GPIO pin (for: Button, Contact Sensor, Light, Servo Motor, Switch).",
+                     "description": "The BCM number of the GPIO pin (for: Button, Contact Sensor, DS18B20, Light, Servo Motor, Switch).",
                      "type": "integer",
                      "maximum": 31
                   },
@@ -149,7 +158,7 @@
                     "oneOf": [
                       {
                         "properties": {
-                          "device": { "enum": ["blinkt", "fanshim"] }
+                          "device": { "enum": ["blinkt", "fanshim", "ds18b20"] }
                         }
                       },
                       {
@@ -181,6 +190,23 @@
                     "oneOf": [
                       {
                         "properties": {
+                          "wireid": {}
+                        },
+                        "properties": {
+                          "device": { "const": "ds18b20" }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "wireid": { "not": {} }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "oneOf": [
+                      {
+                        "properties": {
                           "reversed": {}
                         },
                         "properties": {
@@ -190,6 +216,23 @@
                       {
                         "properties": {
                           "reversed": { "not": {} }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "gpio": {}
+                        },
+                        "properties": {
+                          "device": { "const": "ds18b20" }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "gpio": { "not": {} }
                         }
                       }
                     ]
